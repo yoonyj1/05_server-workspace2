@@ -4,14 +4,19 @@ import java.sql.Connection;
 
 import com.kh.common.JDBCTemplate;
 import com.kh.member.model.dao.MemberDao;
+import com.kh.member.model.vo.Member;
 
 public class MemberService {
 
-	public void loginMember(String userId, String userPwd) {
+	public Member loginMember(String userId, String userPwd) {
 		// Connection 객체 생성
 		Connection conn = JDBCTemplate.getConnection();
 		
 		// dao 호출
-		new MemberDao().loginMember(conn, userId, userPwd);
+		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		
+		JDBCTemplate.close(conn);
+		
+		return m;
 	}
 }

@@ -17,7 +17,7 @@ public class MemberDao {
 	private Properties prop = new Properties();
 	
 	public MemberDao() {
-		String filePath = MemberDao.class.getResource("/db/sql/member-mapping.xml").getPath();
+		String filePath = MemberDao.class.getResource("/db/sql/member-mapper.xml").getPath();
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {
