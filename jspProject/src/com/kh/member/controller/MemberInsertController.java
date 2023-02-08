@@ -1,12 +1,15 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -51,11 +54,21 @@ public class MemberInsertController extends HttpServlet {
 		// 기본생성자로 생성 한 후 setter 메소드 이용해서 담기 => 담으려고 하는 게 소량일 때
 		// 매개변수 생성자를 이용해서 생성과 동시에 담기 => 담으려고 하는 게 많을 때
 		
-		Member m = new Member(userId, userPwd, userName, phone, email, address, interest); // 기본생성자
+		Member m = new Member(userId, userPwd, userName, phone, email, address, interest);
 		
 		// 3) 요청처리 (db에 sql문 실행) => 서비스 메소드 호출 및 결과 받기
+		int result = new MemberService().insertMember(m);
 		
 		// 4) 처리결과를 가지고 사용자가 보게 될 응답 뷰 지정 후 포워딩 or url 재요청
+		if (result > 0) {
+			// 성공 => index 페이지 => /jsp url 재요청 방식
+			response.sendRedirect(request.getContextPath());
+		} else {
+			// 실패 => 에러문구가 보여지는 에러 페이지
+			request.setAttribute("errorMsg", "회원가입에 실패했습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("/views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	/**
