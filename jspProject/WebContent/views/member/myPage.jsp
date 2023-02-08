@@ -23,6 +23,15 @@
 
 	<%@ include file="../common/menubar.jsp" %>
 	
+	<%
+		String userId = loginUser.getUserId();
+		String userName = loginUser.getUserName();
+		String phone = (loginUser.getPhone() == null) ? "" : loginUser.getPhone();
+		String email = (loginUser.getEmail() == null) ? "" : loginUser.getEmail();
+		String address = (loginUser.getAddress() == null) ? "" : loginUser.getAddress();
+		String interest = (loginUser.getInterest() == null) ? "" : loginUser.getInterest();
+	%>
+	
     <div class="outer">
         <br>
         <h2 align="center">마이페이지</h2>
@@ -31,27 +40,27 @@
             <table>
                 <tr>
                     <td>* 아이디</td>
-                    <td><input type="text" name="userId" maxlength="12" value="xxxx" readonly></td>
+                    <td><input type="text" name="userId" maxlength="12" value="<%= userId %>" readonly></td>
                     <td><button type="button">중복확인</button></td>
                 </tr>
                 <tr>
                     <td>* 이름</td>
-                    <td><input type="text" name="userName" maxlength="6" value="xxx" required></td>
+                    <td><input type="text" name="userName" maxlength="6" value="<%= userName %>" required></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;전화번호</td>
-                    <td><input type="text" name="phone" placeholder="- 포함해서 입력" value="xxx-xxx-xxxx"></td>
+                    <td><input type="text" name="phone" placeholder="- 포함해서 입력" value="<%= phone %>"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;이메일</td>
-                    <td><input type="email" name="email" value="xxx@xxx.xxx"></td>
+                    <td><input type="email" name="email" value="<%= email %>"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;주소</td>
-                    <td><input type="text" name="address" value="xxx"></td>
+                    <td><input type="text" name="address" value="<%= address %>"></td>
                     <td></td>
                 </tr>
                 <tr>
