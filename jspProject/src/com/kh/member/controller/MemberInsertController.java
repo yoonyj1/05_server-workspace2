@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
@@ -61,8 +62,13 @@ public class MemberInsertController extends HttpServlet {
 		
 		// 4) 처리결과를 가지고 사용자가 보게 될 응답 뷰 지정 후 포워딩 or url 재요청
 		if (result > 0) {
+			// 세션 활용
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
+			
 			// 성공 => index 페이지 => /jsp url 재요청 방식
 			response.sendRedirect(request.getContextPath());
+			
 		} else {
 			// 실패 => 에러문구가 보여지는 에러 페이지
 			request.setAttribute("errorMsg", "회원가입에 실패했습니다.");

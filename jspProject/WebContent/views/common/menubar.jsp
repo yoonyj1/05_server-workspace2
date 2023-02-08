@@ -6,6 +6,10 @@
 	Member m = (Member)session.getAttribute("loginUser");
 	// 로그인을 시도 전 menubar.jsp 로딩 시: null
 	// 로그인 성공 후 menubar.jsp 로딩 시: 로그인 성공한 회원의 정보가 담겨있는 Member 객체
+	
+	String alertMsg = (String)session.getAttribute("alertMsg");
+	// 서비스 요청 전 menubar.jsp 로딩시: null
+	// 서비스 성공 후 menubar.jsp 로딩시: alert로 띄워줄 메시지 문구
  %>
 <!DOCTYPE html>
 <html>
@@ -42,6 +46,12 @@
 </style>
 </head>
 <body>
+	<% if(alertMsg != null) { %>
+	<script>
+		alert("<%= alertMsg %>");
+	</script>
+	<% session.removeAttribute("alertMsg"); %>
+	<% } %>
     <h1 align="center">Welcome YJ World</h1>
 
     <div class="login-area">
@@ -83,7 +93,7 @@
         <div>
             <b><%= m.getUserName() %></b><%= "님" %>의 방문을 환영합니다 <br><br>
             <div>
-                <a href="#">마이페이지</a>
+                <a href="<%= contextPath %>/myPage.me">마이페이지</a>
                 <a href="<%= contextPath %>/logout.me">로그아웃</a>
             </div>
         </div>
