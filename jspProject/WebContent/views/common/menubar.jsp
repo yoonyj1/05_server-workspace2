@@ -62,10 +62,20 @@
                 <tr>
                     <th colspan="2">
                         <button type="submit">로그인</button>
-                        <button type="button">회원가입</button>
+                        <button type="button" onclick="enrollPage();">회원가입</button>
                     </th>
                 </tr>
             </table>
+            <script>
+            	function enrollPage(){
+            		// location.href = "/jsp/views/member/memberEnrollForm.jsp";
+            		// location.href = "<%= contextPath %>/views/member/memberEnrollForm.jsp";
+	            	// 웹 애플리케이션의 디렉토리 구조가 URL에 노출되면 보안에 취약
+	            	
+	            	// 단순한 페이지 요청도 Servlet 호출해서 Servlet 거쳐갈 것
+	            	location.href = "<%= contextPath %>/enrollForm.me";
+            	}
+            </script>
         </form>
        <% } else {%>
 
