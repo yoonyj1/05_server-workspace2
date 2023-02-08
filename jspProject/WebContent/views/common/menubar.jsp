@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	String contextPath = request.getContextPath(); // /jsp
 	Member m = (Member)session.getAttribute("loginUser");
 	// 로그인을 시도 전 menubar.jsp 로딩 시: null
 	// 로그인 성공 후 menubar.jsp 로딩 시: 로그인 성공한 회원의 정보가 담겨있는 Member 객체
@@ -46,7 +47,7 @@
     <div class="login-area">
     <% if(m == null) { %>
         <!-- case1. 로그인 전 -->
-        <form action="/jsp/login.me" method="post">
+        <form action="<%= contextPath %>/login.me" method="post">
             <table>
                 <tr>
                     <th>아이디</th>
@@ -70,10 +71,10 @@
 
         <!-- case2. 로그인 후 -->
         <div>
-            <b><%= m.getUserName() %></b>의 방문을 환영합니다 <br><br>
+            <b><%= m.getUserName() %></b><%= "님" %>의 방문을 환영합니다 <br><br>
             <div>
                 <a href="#">마이페이지</a>
-                <a href="#">로그아웃</a>
+                <a href="<%= contextPath %>/logout.me">로그아웃</a>
             </div>
         </div>
          <% } %>
@@ -83,7 +84,7 @@
     <br>
     
     <div class="nav-area" align="center">
-        <div class="menu"><a href="#">HOME</a></div>
+        <div class="menu"><a href="<%= contextPath %>">HOME</a></div>
         <div class="menu"><a href="#">공지사항</a></div>
         <div class="menu"><a href="#">일반게시판</a></div>
         <div class="menu"><a href="#">사진게시판</a></div>
