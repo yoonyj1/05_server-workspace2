@@ -141,14 +141,28 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				m = new Member(
-							 rset.getString("user_id")
+				m = new Member(rset.getInt("user_no")
+							 , rset.getString("user_id")
+							 , rset.getString("user_pwd")
 							 , rset.getString("user_name")
 							 , rset.getString("phone")
 							 , rset.getString("email")
 							 , rset.getString("address")
-							 , rset.getString("interest"));
+							 , rset.getString("interest")
+							 , rset.getDate("enroll_date")
+							 , rset.getDate("modify_date")
+							 , rset.getString("status"));
 			}
+			
+//			if(rset.next()) {
+//				m = new Member(
+//							 rset.getString("user_id")
+//							 , rset.getString("user_name")
+//							 , rset.getString("phone")
+//							 , rset.getString("email")
+//							 , rset.getString("address")
+//							 , rset.getString("interest"));
+//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
