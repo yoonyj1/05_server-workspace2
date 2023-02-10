@@ -45,4 +45,27 @@
        , ?
        )
     </entry>
+    
+    <entry key="updateMember">
+    UPDATE MEMBER
+   	   SET USER_NAME = ?
+     	 , PHONE = ?
+         , EMAIL = ?
+         , ADDRESS = ?
+         , INTEREST = ?
+         , MODIFY_DATE = SYSDATE
+	WHERE USER_ID = ?
+    </entry>
+    
+    <entry key="selectMember">
+    SELECT 
+			  USER_ID
+			, USER_NAME
+			, PHONE
+			, EMAIL
+			, ADDRESS
+			, INTEREST
+		FROM MEMBER
+		WHERE USER_ID = ?
+    </entry>
 </properties>

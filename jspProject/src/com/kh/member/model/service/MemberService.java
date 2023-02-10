@@ -36,4 +36,26 @@ public class MemberService {
 		
 		return result;
 	} // insertMember end
+	
+	public Member updateMember(Member m) {
+		// Connection 객체 생성
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMember(conn, m);
+		
+		Member updateMem = null;
+		
+		if(result > 0) { // update 성공
+			commit(conn);
+			
+			// 갱신 된 회원객체를 다시 조회
+			updateMem = new MemberDao().selectMember(conn, m.getUserId());
+		} else { // update 실패
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updateMem;
+	} // updateMember end
 }
