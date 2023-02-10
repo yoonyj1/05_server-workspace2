@@ -108,14 +108,64 @@
             <br><br>
 
             <div align="center">
-                <button type="submit">정보변경</button>
-                <button type="button">비밀번호 변경</button>
-                <button type="button">회원탈퇴</button>
+                <button type="submit" class="btn btn-sm btn-secondary">정보변경</button>
+                <button type="button" class="btn btn-sm btn-warning"  data-toggle="modal" data-target="#updatePwdModal">비밀번호 변경</button>
+                <button type="button" class="btn btn-sm btn-danger">회원탈퇴</button>
             </div>
 
-            <br>
+            <br><br>
 
         </form>
     </div>
+    
+    <!-- 비밀번호 변경용 Modal -->
+<div class="modal" id="updatePwdModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">비밀번호 변경</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" align="center">
+		<form action="<%= contextPath %>/updatePwd.me" method="post">
+		<input type="hidden" name="userId" value="<%= userId %>">
+            <table>
+                <tr>
+                    <td>현재 비밀번호</td>
+                    <td><input type="password" name="userPwd" required></td>
+                </tr>
+                <tr>
+                    <td>변경할 비밀번호</td>
+                    <td><input type="password" name="updatePwd" required></td>
+                </tr>
+                <tr>
+                    <td>변경할 비밀번호 확인</td>
+                    <td><input type="password" name="checkPwd" required></td>
+                </tr>
+            </table>
+            
+            <br>
+
+            <button type="submit" class="btn btn-sm btn-secondary" onclick="return validatePwd();">비밀번호 변경</button>
+        </form>
+      </div>
+
+      <script>
+        function validatePwd(){
+            if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()){
+                alert("변경할 비밀번호가 일치하지 않습니다.");
+
+                return false;
+            };
+        };
+      </script>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>

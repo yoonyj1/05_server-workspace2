@@ -154,15 +154,6 @@ public class MemberDao {
 							 , rset.getString("status"));
 			}
 			
-//			if(rset.next()) {
-//				m = new Member(
-//							 rset.getString("user_id")
-//							 , rset.getString("user_name")
-//							 , rset.getString("phone")
-//							 , rset.getString("email")
-//							 , rset.getString("address")
-//							 , rset.getString("interest"));
-//			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -171,4 +162,29 @@ public class MemberDao {
 		}
 		return m;
 	} // selectMember end
+	
+	public int updatePwd(Connection conn, String userId, String userPwd, String updatePwd) {
+		// 업데이트 문 => 처리된 행 수 => 트랜잭션 처리
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, updatePwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }
