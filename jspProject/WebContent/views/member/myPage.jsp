@@ -109,8 +109,8 @@
 
             <div align="center">
                 <button type="submit" class="btn btn-sm btn-secondary">정보변경</button>
-                <button type="button" class="btn btn-sm btn-warning"  data-toggle="modal" data-target="#updatePwdModal">비밀번호 변경</button>
-                <button type="button" class="btn btn-sm btn-danger">회원탈퇴</button>
+                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#updatePwdModal">비밀번호 변경</button>
+                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal">회원탈퇴</button>
             </div>
 
             <br><br>
@@ -166,6 +166,48 @@
 
     </div>
   </div>
+</div>
+
+  <!-- 회원탈퇴용 Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">회원탈퇴</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" align="center">
+          <form action="<%= contextPath %>/delete.me" method="post">
+          <input type="hidden" name="userId" value="<%= userId %>">
+            <b>탈퇴 후 복구가 불가능 합니다.<br> 정말로 탈퇴하시겠습니까?</b> <br><br> 
+          
+            비밀번호: <input type="password" name="userPwd" required> <br><br>
+            <button type="submit" class="btn btn-sm btn-danger">탈퇴하기</button>
+            
+            <!-- 
+            	회원 탈퇴 요청 시 sql 문
+            		UPDATE MEMBER
+            		   SET STATUS='N'
+            		   	   MODIFY_DATE=SYSDATE
+            		 WHERE USER_ID=현재로그인한아이디
+            		   AND USER_PWD=사용자가 입력한 비밀번호
+            		   
+            		   성공했을 경우 메인페이지 alertMsg(성공적으로 회원탈퇴 되었습니다. 그동안 이용해주셔서 감사합니다.)
+            		   			  단, 로그아웃 되있어야함(세션에 loginUser라는 키값에 해당하는 것 지우기
+      		   		   실패했을 경우 => 마이페이지 alert(회원탈퇴 실패) 
+             -->
+         </form>
+        </div>
+  
+        
+  
+      
+    </div>
+</div>
 </div>
 </body>
 </html>
