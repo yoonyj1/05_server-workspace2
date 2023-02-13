@@ -1,5 +1,10 @@
+<%@page import="com.kh.notice.model.vo.Notice"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +33,12 @@
         <br>
         <h2 align="center">공지사항</h2>
         <br>
+
+        <!-- 현재 로그인 한 사용자가 관리자일 경우(admin) 보여질 div -->
+        <div align="right" style="width:850px;">
+            <button>글작성</button>
+            <br><br>
+        </div>
 
         <table class="list-area" align="center">
             <thead>
