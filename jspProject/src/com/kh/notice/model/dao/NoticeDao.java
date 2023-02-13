@@ -54,4 +54,27 @@ public class NoticeDao {
 		
 		return list;
 	}
+	
+	public int insertNotice(Connection conn, Notice n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter()));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

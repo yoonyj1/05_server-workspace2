@@ -36,7 +36,8 @@
 		<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
         <!-- 현재 로그인 한 사용자가 관리자일 경우(admin) 보여질 div -->
         <div align="right" style="width:850px;">
-            <button>글작성</button>
+            <!-- <button onclick="location.href='요청할url'">글작성</button> -->
+            <a href="<%= contextPath %>/enrollForm.no" class="btn btn-sm btn-secondary">글작성</a>
             <br><br>
         </div>
 		<% } %>
