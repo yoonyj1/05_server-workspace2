@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class MyPageController
@@ -28,9 +29,20 @@ public class MyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 포워딩 방식
-		RequestDispatcher view = request.getRequestDispatcher("views/member/myPage.jsp");
-		view.forward(request, response);
+		// 로그인 전에 url 쳐서 들어온경우
+		// 로그인 전 요청 시 => 메인페이지 응답, alert 띄우기
+		// 로그인 후 요청 시 => 마이페이지 응답
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("loginUser") == null) { // 로그인 전
+			session.setAttribute("alertMsg", "로그인 후 이용가능합니다.");
+			
+			response.sendRedirect(request.getContextPath());
+		} else { // 로그인 후
+			// 포워딩 방식
+			RequestDispatcher view = request.getRequestDispatcher("views/member/myPage.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	/**

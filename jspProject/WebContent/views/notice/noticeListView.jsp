@@ -33,13 +33,13 @@
         <br>
         <h2 align="center">공지사항</h2>
         <br>
-
+		<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
         <!-- 현재 로그인 한 사용자가 관리자일 경우(admin) 보여질 div -->
         <div align="right" style="width:850px;">
             <button>글작성</button>
             <br><br>
         </div>
-
+		<% } %>
         <table class="list-area" align="center">
             <thead>
                 <tr>
@@ -52,35 +52,24 @@
             </thead>
             <tbody>
                 <!-- case1. 공지글이 없는 경우 -->
-                <tr>
-                    <td colspan="5" align="center">존재하는 공지사항이 없습니다.</td>
-                </tr>
-
+                <% if(list.isEmpty()) { %>
+	                <tr>
+	                    <td colspan="5" align="center">존재하는 공지사항이 없습니다.</td>
+	                </tr>
+				<% } else { %>
                 <!-- case2. 공지글이 있는 경우 -->
+                <% for(Notice n : list) { %>
                 <tr>
-                    <td>3</td>
-                    <td>ㅎㅇ 관리자임다</td>
-                    <td>admin</td>
-                    <td>30</td>
-                    <td>2023-02-13</td>
+                    <td><%= n.getNoticeNo() %></td>
+                    <td><%= n.getNoticeTitle() %></td>
+                    <td><%= n.getNoticeWriter() %></td>
+                    <td><%= n.getCount() %></td>
+                    <td><%= n.getCreateDate() %></td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>ㅎㅇ 관리자임다2</td>
-                    <td>admin</td>
-                    <td>5</td>
-                    <td>2022-02-13</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>ㅎㅇ 관리자임다3</td>
-                    <td>admin</td>
-                    <td>3</td>
-                    <td>2021-02-13</td>
-                </tr>
+                	<% } %>
+				<% } %>
             </tbody>
         </table>
-
     </div>
 </body>
 </html>
