@@ -30,8 +30,8 @@
         <form action="<%= contextPath %>/insert.no" id="enroll-form" method="post">
             <table>
                 <tr>
-                    <th>제목</th>
-                    <td><input type="text" name="title" required></td>
+                    <th width="50">제목</th>
+                    <td width="450"><input type="text" name="title" required></td>
                 </tr>
 
                 <tr>
