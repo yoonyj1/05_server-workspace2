@@ -99,4 +99,37 @@ public class NoticeDao {
 		
 		return result;
 	}
+	
+	public Notice selectNotice(Connection conn, int noticeNo) {
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		Notice n = null;
+		
+		String sql = prop.getProperty("selectNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, noticeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				n = new Notice(rset.getInt("notice_no")
+							 , rset.getString("notice_title")
+							 , rset.getString("notice_content")
+							 , rset.getString("user_id")
+							 , rset.getDate("create_date"));	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return n;
+	}
 }

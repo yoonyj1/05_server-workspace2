@@ -37,4 +37,16 @@
     WHERE NOTICE_NO = ?
       AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectNotice">
+	SELECT
+        NOTICE_NO
+      , NOTICE_TITLE
+      , NOTICE_CONTENT
+      , USER_ID
+      , CREATE_DATE
+  	FROM NOTICE N 
+  	JOIN MEMBER ON(NOTICE_WRITER = USER_NO)
+  	WHERE NOTICE_NO = ?
+	</entry>
 </properties>
