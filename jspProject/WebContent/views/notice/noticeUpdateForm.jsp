@@ -31,7 +31,8 @@
         <br>
         <h2 align="center">공지사항 수정하기</h2>
         <br>
-        <form action="" id="update-form" method="post">
+        <form action="<%= contextPath %>/update.no" id="update-form" method="post">
+            <input type="hidden" name="num" value="<%= n.getNoticeNo() %>">
             <table>
                 <tr>
                     <th width="50">제목</th>
@@ -54,6 +55,7 @@
                 <button type="submit">수정하기</button>
                 <button type="button" onclick="history.back();">뒤로가기</button>
             </div>
+            
         </form>
     </div>
 </body>
