@@ -27,7 +27,6 @@
         <br>
         <h2 align="center">공지사항 상세보기</h2>
         <br>
-
         <table id="detail-area" border="1">
             <tr>
                 <th width="70">제목</th>
@@ -55,7 +54,7 @@
             <!-- 현재 로그인 한 사용자가 해당 글을 쓴 본인일 경우 -->
             <% if(loginUser != null && n.getNoticeWriter().equals(loginUser.getUserId())) { %>
 	            <a href="<%= contextPath %>/updateForm.no?num=<%= n.getNoticeNo() %>" class="btn btn-sm btn-warning">수정하기</a>
-	            <a href="#" class="btn btn-sm btn-danger">삭제하기</a>
+	            <a href="<%= contextPath %>/delete.no?num=<%= n.getNoticeNo() %>" class="btn btn-sm btn-danger">삭제하기</a>
 	            <% } %>
         </div>
     </div>
