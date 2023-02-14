@@ -29,4 +29,12 @@
 		  , ?	
 		)
 	</entry>
+	
+	<entry key="increaseCount">
+	UPDATE
+    	NOTICE
+    SET COUNT = COUNT + 1
+    WHERE NOTICE_NO = ?
+      AND STATUS = 'Y'
+	</entry>
 </properties>
