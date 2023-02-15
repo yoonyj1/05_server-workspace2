@@ -1,8 +1,11 @@
 package com.kh.board.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.board.model.dao.BoardDao;
+import com.kh.board.model.vo.Board;
+import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -16,5 +19,25 @@ public class BoardService {
 		close(conn);
 		
 		return listCount;
+	}
+	
+	public ArrayList<Board> selectList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Board> selectListTest(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectListTest(conn, pi);
+		
+		close(conn);
+		
+		return list;
 	}
 }

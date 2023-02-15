@@ -121,6 +121,7 @@
         <div class="menu"><a href="<%= contextPath %>/list.no">공지사항</a></div>
         <div class="menu"><a href="<%= contextPath %>/list.bo?cpage=1">일반게시판</a></div>
         <div class="menu"><a href="#">사진게시판</a></div>
+        <div class="menu"><a href="<%= contextPath %>/list.te?cpage=1">테스트</a></div>
     </div>
 </body>
 </html>

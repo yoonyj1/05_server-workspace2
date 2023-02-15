@@ -14,16 +14,16 @@ import com.kh.board.model.vo.Board;
 import com.kh.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class BoardListController
+ * Servlet implementation class BoardTestController
  */
-@WebServlet("/list.bo")
-public class BoardListController extends HttpServlet {
+@WebServlet("/list.te")
+public class BoardTestController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListController() {
+    public BoardTestController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +32,6 @@ public class BoardListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ------------------- 페이징 처리(어려움) ---------------------
-		// 원리파악 & 공식외우기
-		
 		int listCount; // 현재 총 게시글 개수
 		int currentPage; // 현재 페이지(사용자가 요청한 페이지)
 		int pageLimit; // 페이지 하단에 보여질 페이징바의 페이지 최대 개수(몇개 단위 씩 배치할 건지)
@@ -136,12 +133,12 @@ public class BoardListController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		// * 현재 요청한 페이지(currentPage)에 보여질 게시글 리스트 boardLimit 수만큼 조회
-		ArrayList<Board> list = new BoardService().selectList(pi);
+		ArrayList<Board> list = new BoardService().selectListTest(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/board/boardtest.jsp").forward(request, response);
 	}
 
 	/**

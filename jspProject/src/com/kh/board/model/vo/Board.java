@@ -29,6 +29,16 @@ public class Board {
 		this.createDate = createDate;
 		this.status = status;
 	}
+	
+	public Board(int boardNo, String categoryNo, String boardTitle, String boardWriter, int count, String createDate) {
+		super();
+		this.boardNo = boardNo;
+		this.categoryNo = categoryNo;
+		this.boardTitle = boardTitle;
+		this.boardWriter = boardWriter;
+		this.count = count;
+		this.createDate = createDate;
+	}
 
 	// 메소드부
 	public int getBoardNo() {
