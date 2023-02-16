@@ -86,9 +86,10 @@
          , ?
          , ?
          )
-
-INSERT 
-    INTO ATTACHMENT
+	</entry>
+	<entry key="insertAttachment">
+	INSERT 
+    	INTO ATTACHMENT
 			    (
 			     FILE_NO
 			   , REF_BNO

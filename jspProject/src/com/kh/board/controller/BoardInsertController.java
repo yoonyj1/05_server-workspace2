@@ -11,20 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Attachment;
+import com.kh.board.model.vo.Board;
 import com.kh.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class BoardEnrollController
  */
-@WebServlet(name = "BoardInsertController", urlPatterns = { "/insert.bo" })
-public class BoardEnrollController extends HttpServlet {
+@WebServlet("/insert.bo")
+public class BoardInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardEnrollController() {
+    public BoardInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -87,10 +90,40 @@ public class BoardEnrollController extends HttpServlet {
 		// 3. DB에 기록할 데이터 뽑아서 vo에 담기
 		//  > 카테고리 번호, 제목, 내용, 작성자회원번호 뽑아서 Board insert
 		//  > 넘어온 첨부파일 있다면 원본명, 수정명, 저장폴더 경로 Attachment insert 
+		String category = multipartRequest.getParameter("category");
+		String boardTitle = multipartRequest.getParameter("title");
+		String boardContent = multipartRequest.getParameter("content");
+		String boardWriter = multipartRequest.getParameter("userNo");
+		
+		Board b = new Board();
+		b.setCategoryNo(category);
+		b.setBoardTitle(boardTitle);
+		b.setBoardContent(boardContent);
+		b.setBoardWriter(boardWriter);
+		
+		Attachment at = null; // 처음에는 null로 초기화 넘어온 첨부파일이 있다면 생성
+		
+		// multipartRequest.getOriginalFileName("키"): 넘어온 첨부파일 있을 경우 "원본명"
+		if(multipartRequest.getOriginalFileName("upfile") != null) {
+			at = new Attachment();
+			at.setOriginName(multipartRequest.getOriginalFileName("upfile"));
+			at.setChangeName(multipartRequest.getFilesystemName("upfile"));
+			at.setFilePath("resources/board_upfiles/");
+		}
 		
 		// 4. 서비스 요청
+		int result = new BoardService().insertBoard(b, at);
 		
 		// 5. 응답뷰 지정
+		if (result > 0) {
+			// 성공 => /jsp/list.bo?cpage=1
+			response.sendRedirect(request.getContextPath() + "/list.bo?cpage=1");
+		} else {
+			// error
+			request.setAttribute("errorMsg", "일반게시판 등록 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
+		}
 	}
 
 	/**
