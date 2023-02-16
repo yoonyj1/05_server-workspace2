@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -55,7 +56,7 @@ public class BoardEnrollController extends HttpServlet {
  		 */
 		int maxSize = 10*1024*1024;
 		// 1-2) 전달된 파일을 저장시킬 폴더의 경로 알아내기(String savePath)
-		String savePath = request.getSession().getServletContext().getRealPath("resources/board_upfile/");
+		String savePath = request.getSession().getServletContext().getRealPath("/resources/board_upfiles/");
 		// System.out.println(savePath);
 		
 		// 2. 전달된 파일의 파일명 수정 및 서버에 업로드(폴더에 저장) 작업
@@ -78,10 +79,14 @@ public class BoardEnrollController extends HttpServlet {
 			 * 		}
 			 * 
 			 * 		나만의 방식대로 절대 안겹치도록 rename 할 수 있게 나만의 FileRenamePolicy 클래스 (rename 메소드 재정의) 만들기
+			 * 		com.kh.common.MyFileRenamePolicy 클래스 만들기
 			 */
 		
-		MultipartRequest multipartRequest = new MultipartRequest(request, saveDirectory)
+		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+		// 여기까지하고 실행
 		// 3. DB에 기록할 데이터 뽑아서 vo에 담기
+		//  > 카테고리 번호, 제목, 내용, 작성자회원번호 뽑아서 Board insert
+		//  > 넘어온 첨부파일 있다면 원본명, 수정명, 저장폴더 경로 Attachment insert 
 		
 		// 4. 서비스 요청
 		
