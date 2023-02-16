@@ -108,7 +108,7 @@ public class BoardListController extends HttpServlet {
 		 *       10~19
 		 *       20~29
 		 *       
-		 *       startPage  =  n							* pageLimit + 1
+		 *       startPage  =  n							 * pageLimit + 1
 		 *       			   (currentPage - 1) / pageLimit * pageLimit + 1
 		 */
 		

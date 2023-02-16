@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.Category;
 import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -145,6 +146,34 @@ public class BoardDao {
 			close(pstmt);
 		}
 		
+		return list;
+	}
+	
+	public ArrayList<Category> selectCategoryList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Category> list = new ArrayList<Category>();
+		
+		String sql = prop.getProperty("selectCategoryList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Category(
+									  rset.getInt("category_no"),
+									  rset.getString("category_name")
+						));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
 }

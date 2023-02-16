@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Board;
+import com.kh.board.model.vo.Category;
 import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -35,6 +36,16 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		ArrayList<Board> list = new BoardDao().selectListTest(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public ArrayList<Category> selectCategoryList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Category> list = new BoardDao().selectCategoryList(conn);
 		
 		close(conn);
 		
