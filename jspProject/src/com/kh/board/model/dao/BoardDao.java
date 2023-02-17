@@ -294,6 +294,8 @@ public class BoardDao {
 			
 			pstmt.setInt(1, boardNo);
 			
+			rset = pstmt.executeQuery();
+			
 			if(rset.next()) {
 				at = new Attachment();
 				
