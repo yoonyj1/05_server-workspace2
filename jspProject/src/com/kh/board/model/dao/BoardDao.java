@@ -16,6 +16,11 @@ import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
 
+/**
+ * BoardDao.java
+ * @author yyj
+ * @since 2023.02.20
+ */
 public class BoardDao {
 	
 	private Properties prop = new Properties();
@@ -28,6 +33,11 @@ public class BoardDao {
 		}
 	}
 	
+	/**
+	 * 게시글 개수 조회
+	 * @param conn
+	 * @return
+	 */
 	public int selectListCount(Connection conn) {
 		// select 문 => ResultSet 객체(1개) => int 형 변수
 		int listCount = 0;
@@ -54,6 +64,12 @@ public class BoardDao {
 		return listCount;
 	}
 	
+	/**
+	 * 게시글 조회
+	 * @param conn
+	 * @param pi
+	 * @return
+	 */
 	public ArrayList<Board> selectList(Connection conn, PageInfo pi) {
 		// select문 => ResultSet 객체 (여러 행) => ArrayList<Board>
 		ArrayList<Board> list = new ArrayList<Board>();
@@ -150,6 +166,11 @@ public class BoardDao {
 		return list;
 	}
 	
+	/**
+	 * 카테고리 리스트 조회
+	 * @param conn
+	 * @return
+	 */
 	public ArrayList<Category> selectCategoryList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -178,6 +199,12 @@ public class BoardDao {
 		return list;
 	}
 	
+	/**
+	 * 게시글 작성
+	 * @param conn
+	 * @param b
+	 * @return
+	 */
 	public int insertBoard(Connection conn, Board b) {
 		// insert문 => 처리된 행수 => 트랜잭션 처리
 		int result = 0;
@@ -203,6 +230,12 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * 첨부파일 추가
+	 * @param conn
+	 * @param at
+	 * @return
+	 */
 	public int insertAttachment(Connection conn, Attachment at) {
 		int result = 0;
 		
@@ -226,6 +259,12 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * 조회수 증가
+	 * @param conn
+	 * @param boardNo
+	 * @return
+	 */
 	public int increaseCount(Connection conn, int boardNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -247,6 +286,12 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * 게시글 조회
+	 * @param conn
+	 * @param boardNo
+	 * @return
+	 */
 	public Board selectBoard(Connection conn, int boardNo) {
 		Board b = null;
 		
@@ -281,6 +326,12 @@ public class BoardDao {
 		return b;
 	}
 	
+	/**
+	 * 첨부파일 조회
+	 * @param conn
+	 * @param boardNo
+	 * @return
+	 */
 	public Attachment selectAttachment(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -314,6 +365,12 @@ public class BoardDao {
 		return at;
  	} 
 	
+	/**
+	 * 게시글 수정
+	 * @param conn
+	 * @param b
+	 * @return
+	 */
 	public int updateBoard(Connection conn, Board b) {
 		int result = 0;
 		
@@ -339,6 +396,12 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * 첨부파일 수정
+	 * @param conn
+	 * @param at
+	 * @return
+	 */
 	public int updateAttachment(Connection conn, Attachment at) {
 		int result = 0;
 		
@@ -364,6 +427,12 @@ public class BoardDao {
 		return result;
 	}
 	
+	/**
+	 * 첨부파일 추가
+	 * @param conn
+	 * @param at
+	 * @return
+	 */
 	public int insertNewAttachment(Connection conn, Attachment at) {
 		int result = 0;
 		
