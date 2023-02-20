@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.common.MyFileRenamePolicy;
@@ -40,7 +41,7 @@ public class BoardUpdateController extends HttpServlet {
 			int maxSize = 10 * 1024 * 1024; // 10MB
 			
 			// 1_2. 전달되는 파일을 저장시킬 서버의 폴더 물리적인 경로(String savePath)
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/borad_upfiles/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/board_upfiles/");
 			
 			// 2. 전달 된 파일명 수정작업 후 서버에 업로드
 			// HttpServletRequest => MultipartRequest
@@ -64,9 +65,40 @@ public class BoardUpdateController extends HttpServlet {
 			// 첨부파일이 넘어왔는지 확인하는 방법
 			if(multiRequest.getOriginalFileName("upfile") != null) {
 				// 새로 넘어온 첨부파일이 있을 경우
+				at = new Attachment();
+				at.setOriginName(multiRequest.getOriginalFileName("upfile"));
+				at.setChangeName(multiRequest.getFilesystemName("upfile"));
+				at.setFilePath("resources/board_upfiles/");
+				
+				if(multiRequest.getParameter("originFileNo") != null) {
+					// 기존에 첨부파일이 있었을 경우 => Update Attachment (기존의 첨부파일 번호 필요)
+					at.setFileNo(Integer.parseInt(multiRequest.getParameter("originFileNo")));
+					
+				} else {
+					// 기존에 첨부파일이 없었을 경우 => Insert Attachment (현재 게시글 번호 필요)
+					at.setRefBno(boardNo);
+				}
+				
+				
+				
 			}
 			
 			// 새로 넘어온 첨부파일이 없었다면 at는 null일 것
+			int result = new BoardService().updateBoard(b, at);
+			// 새로운 첨부파일 x 						  =>b, null					=> Board Update
+			// 새로운 첨부파일 o, 기존의 첨부파일 o			  =>b, fileNo가 담긴 at		=> Board Update, Attachment Update
+			// 새로운 첨부파일 o, 기존의 첨부파일 x 		  =>b, refBoardNo이 담긴 at 	=> Board Update, Attachment Insert
+			
+			if(result > 0) {
+				// 성공 => /jsp/detail.bo?bno=현재게시글번호
+				request.getSession().setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+				
+				response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
+			} else {
+				// 실패 => errorPage
+				request.setAttribute("errorMsg", "수정 실패");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
 		}
 	}
 

@@ -88,6 +88,7 @@
                     <td>
                     <% if(at != null) { %>
                     	<%= at.getOriginName() %>
+                    	<input type="hidden" name="originFileNo" value=<%= at.getFileNo() %>>
                     <% } %>
                     <input type="file" name="upfile">
                     </td>
