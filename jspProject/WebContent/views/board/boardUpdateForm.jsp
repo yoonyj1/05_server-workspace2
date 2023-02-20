@@ -45,7 +45,8 @@
         <h2 align="center">일반게시판 수정하기</h2>
         <br>
 
-        <form action="#" id="update-form" method="post" enctype="multipart/form-data">
+        <form action="<%=contextPath %>/update.bo" id="update-form" method="post" enctype="multipart/form-data">
+        <input type = "hidden" name = "bno" value = "<%= b.getBoardNo() %>">
         <!-- enctype 파일 자체를 넘기려면 enctype 필요 -->
             <table align="center">
                 <tr>
