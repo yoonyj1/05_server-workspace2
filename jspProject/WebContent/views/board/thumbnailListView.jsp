@@ -1,5 +1,8 @@
+<%@page import="com.kh.board.model.vo.Board"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,49 +46,16 @@
 		<% } %>
         <div class="list-area">
             <!-- 썸네일 한개 -->
-            <div class="thumbnail" align="center">
-                <img src="이미지경로" width="200" height="150">
-                <p>
-                    No.20 제목입니다. <br>
-                    조회수: 230
-                </p>
-            </div>
-
-            <!-- 썸네일 한개 -->
-            <div class="thumbnail" align="center">
-                <img src="이미지경로" width="200" height="150">
-                <p>
-                    No.20 제목입니다. <br>
-                    조회수: 230
-                </p>
-            </div>
-
-            <!-- 썸네일 한개 -->
-            <div class="thumbnail" align="center">
-                <img src="이미지경로" width="200" height="150">
-                <p>
-                    No.20 제목입니다. <br>
-                    조회수: 230
-                </p>
-            </div>
-
-            <!-- 썸네일 한개 -->
-            <div class="thumbnail" align="center">
-                <img src="이미지경로" width="200" height="150">
-                <p>
-                    No.20 제목입니다. <br>
-                    조회수: 230
-                </p>
-            </div>
-
-            <!-- 썸네일 한개 -->
-            <div class="thumbnail" align="center">
-                <img src="이미지경로" width="200" height="150">
-                <p>
-                    No.20 제목입니다. <br>
-                    조회수: 230
-                </p>
-            </div>
+            <% for(Board b : list) { %>
+	            <div class="thumbnail" align="center">
+	                <img src="<%= b.getTitleImg() %>" width="200" height="150">
+	                <p>
+	                    <%= "No." + b.getBoardNo() + " " + b.getBoardTitle() %> <br>
+	                    조회수: <%= b.getCount() %>
+	                </p>
+	            </div>
+			<% } %>
+            
         </div>
     </div>
 </body>

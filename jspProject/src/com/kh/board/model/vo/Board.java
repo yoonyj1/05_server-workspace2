@@ -12,6 +12,7 @@ public class Board {
 	private int count;
 	private String createDate; // TO_DATE 쓰기 위해서 String
 	private String status;
+	private String titleImg;
 	
 	// 생성자부
 	public Board() {}
@@ -49,6 +50,14 @@ public class Board {
 		this.boardContent = boardContent;
 		this.boardWriter = boardWriter;
 		this.createDate = createDate;
+	}
+
+	public Board(int boardNo, String boardTitle, int count, String titleImg) {
+		super();
+		this.boardNo = boardNo;
+		this.boardTitle = boardTitle;
+		this.count = count;
+		this.titleImg = titleImg;
 	}
 
 	// 메소드부
@@ -122,6 +131,16 @@ public class Board {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	
+
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
 	}
 
 	@Override
