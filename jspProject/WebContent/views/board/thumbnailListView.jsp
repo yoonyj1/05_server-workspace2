@@ -29,6 +29,11 @@
         display: inline-block;
         margin: 14px;
     }
+    
+    .thumbnail:hover{
+    	cursor: pointer;
+    	opacity: 0.7;
+    }
 </style>
 </head>
 <body>
@@ -48,6 +53,7 @@
             <!-- 썸네일 한개 -->
             <% for(Board b : list) { %>
 	            <div class="thumbnail" align="center">
+	            <input type="hidden" value="<%= b.getBoardNo() %>">
 	                <img src="<%= b.getTitleImg() %>" width="200" height="150">
 	                <p>
 	                    <%= "No." + b.getBoardNo() + " " + b.getBoardTitle() %> <br>
@@ -58,5 +64,11 @@
             
         </div>
     </div>
+    
+    <script>
+    	$(".thumbnail").click(function(){
+    		location.href="<%=contextPath%>/detail.th?bno=" + $(this).children("input").val();
+    	})
+    </script>
 </body>
 </html>
