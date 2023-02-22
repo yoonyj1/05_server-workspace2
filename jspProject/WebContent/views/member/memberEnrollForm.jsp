@@ -32,7 +32,7 @@
                         <tr>
                             <td>* 아이디</td>
                             <td><input type="text" name="userId" maxlength="12" required></td>
-                            <td><button type="button">중복확인</button></td>
+                            <td><button type="button" onclick="idCheck();">중복확인</button></td>
                         </tr>
                         <tr>
                             <td>* 비밀번호</td>
@@ -91,7 +91,7 @@
                     <br><br>
 
                     <div align="center">
-                        <button type="submit">회원가입</button>
+                        <button type="submit" disabled>회원가입</button>
                         <button type="reset">초기화</button>
                     </div>
 
@@ -99,6 +99,16 @@
 
                 </form>
             </div>
+            
+            <script>
+            	function idCheck(){
+            		// 중복 확인 클릭 시 사용자가 입력한 아이디 값을 넘겨서 조회요청 후 응답데이터 돌려받기
+            		// 1) 사용불가능(NNNNN)일 경우 => alert 출력, 다시 입력할 수 있도록 유도
+            		// 2) 사용가능(NNNNY)일 경우 => 진짜 사용할 것인지 의사를 물어볼 것(confirm 메소드)
+            		//						=> 사용하는 경우 => 더이상 아이디 수정 못하게끔 픽스, 회원가입 버튼 활성화
+            		//						=> 사용한하겠다는 유도 => 다시 입력하도록 유도
+            	}
+            </script>
     </body>
 
     </html>
