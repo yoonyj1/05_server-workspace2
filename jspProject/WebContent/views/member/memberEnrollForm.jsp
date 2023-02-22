@@ -107,6 +107,32 @@
             		// 2) 사용가능(NNNNY)일 경우 => 진짜 사용할 것인지 의사를 물어볼 것(confirm 메소드)
             		//						=> 사용하는 경우 => 더이상 아이디 수정 못하게끔 픽스, 회원가입 버튼 활성화
             		//						=> 사용한하겠다는 유도 => 다시 입력하도록 유도
+            		
+            		// 입력한 아이디 input 요소 객체
+            		const $idInput = $("#enroll-form input[name=userId]");
+            		
+            		$.ajax({
+            			url:"idCheck.me",
+            			data:{checkId:$idInput.val()},
+            			success:function(result){
+            				if(result == "NNNNN"){
+                				alert("이미 사용하고 있는 아이디 입니다.");
+                				$idInput.val("");
+                				$idInput.focus();
+                			} else if(result == "NNNNY"){
+                				if(confirm("사용하실 수 있는 아이디입니다. 사용하시겠습니까?")){
+                					$("button[type=submit]").removeAttr("disabled");
+                				} else{
+                					$idInput.val("");
+                    				$idInput.focus();
+                				}
+                			}
+            				
+            			},
+            			error:function(){
+            				console.log("아이디 중복체크용 ajax 통신 실패");
+            			}
+            		})
             	}
             </script>
     </body>

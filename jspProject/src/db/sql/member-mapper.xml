@@ -92,7 +92,7 @@
     
     <entry key="idCheck">
     SELECT
-        COUNT(*) COUNT
+        COUNT(*) "COUNT"
         FROM MEMBER
     WHERE USER_ID = ?
     </entry>
