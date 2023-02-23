@@ -92,7 +92,7 @@
 
                     <div align="center">
                         <button type="submit" disabled>회원가입</button>
-                        <button type="reset">초기화</button>
+                        <button type="reset" onclick="readonlyFalse();">초기화</button>
                     </div>
 
                     <br>
@@ -101,6 +101,12 @@
             </div>
             
             <script>
+            	function readonlyFalse(){
+            		const $idInput = $("#enroll-form input[name=userId]");
+            		$idInput.removeAttr("readonly");
+            		$idInput.removeAttr("readonly").focus();
+            	}
+            	
             	function idCheck(){
             		// 중복 확인 클릭 시 사용자가 입력한 아이디 값을 넘겨서 조회요청 후 응답데이터 돌려받기
             		// 1) 사용불가능(NNNNN)일 경우 => alert 출력, 다시 입력할 수 있도록 유도
@@ -121,7 +127,10 @@
                 				$idInput.focus();
                 			} else if(result == "NNNNY"){
                 				if(confirm("사용하실 수 있는 아이디입니다. 사용하시겠습니까?")){
-                					$("button[type=submit]").removeAttr("disabled");
+                					// $("button[type=submit]").removeAttr("disabled");
+                					// $("#enroll-form :submit").attr("disabled", false);
+                					$("#enroll-form :submit").removeAttr("disabled");
+                					$idInput.attr("readonly", true);
                 				} else{
                 					$idInput.val("");
                     				$idInput.focus();

@@ -1,3 +1,5 @@
+<%@page import="com.kh.board.model.vo.Reply"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.board.model.vo.Attachment"%>
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -19,7 +21,7 @@
         background-color: black;
         color: white;
         width: 1000px;
-        height: 550px;
+        height: auto;
         margin: auto;
         margin-top: 50px;
     }
@@ -79,6 +81,60 @@
             <a href="#" class="btn btn-sm btn-danger">삭제하기</a>
             <% } %>
         </div>
+        
+        <br>
+        
+        <div id="reply-area">
+        	<table border="1" align="center">
+        		<thead>
+        			<tr>
+        				<th>댓글작성</th>
+        				<td>
+        					<textarea rows="3" cols="50" style="resize:none;"></textarea>
+        				</td>
+        				<td>
+        					<button>댓글등록</button>
+        				</td>
+        			</tr>
+        		</thead>
+        		
+        		<tbody id="reply-content">
+
+
+
+        		</tbody>
+        	</table>
+        </div>
+        
+        <script>
+        	$(function(){
+        		selectReplyList();
+        	})
+        	
+        	// ajax로 해당 게시글에 딸린 댓글 목록 조회용
+        	function selectReplyList(){
+        		$.ajax({
+        			url:"rlist.bo",
+        			data:{bno:<%=b.getBoardNo()%>},
+        			success:function(result){
+        				let value = "";
+        				for(let i = 0; i < result.length; i++){
+        					value += "<tr>"
+        								+ "<td>" + result[i].replyWriter + "</td>"
+        								+ "<td>" + result[i].replyContent + "</td>"
+        								+ "<td>" + result[i].createDate + "</td>"
+       							 	 + "</tr>"
+        				}
+        				
+        				$("#reply-content").html(value);
+        				
+        			},
+        			error:function(){
+        				console.log("ajax 통신 실패");
+        			}
+        		})
+        	}
+        </script>
     </div>
 </body>
 </html>
