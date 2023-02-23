@@ -98,7 +98,7 @@
         			</tr>
         		</thead>
         		
-        		<tbody id="reply-content">
+        		<tbody>
 
 
 
@@ -126,7 +126,7 @@
        							 	 + "</tr>"
         				}
         				
-        				$("#reply-content").html(value);
+        				$("#reply-area tbody").html(value);
         				
         			},
         			error:function(){
