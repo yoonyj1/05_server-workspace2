@@ -89,12 +89,22 @@
         		<thead>
         			<tr>
         				<th>댓글작성</th>
+        				
+        				<% if(loginUser != null) { // 로그인이 되있는 경우) %>
         				<td>
-        					<textarea rows="3" cols="50" style="resize:none;"></textarea>
+        					<textarea id="replyContent" rows="3" cols="50" style="resize:none;"></textarea>
         				</td>
         				<td>
-        					<button>댓글등록</button>
+        					<button onclick="insertReply();">댓글등록</button>
         				</td>
+        				<% } else { // 로그인 안되있는 경우 %>
+        				<td>
+        					<textarea rows="3" cols="50" style="resize:none;" readonly>로그인 후 이용가능 한 서비스입니다.</textarea>
+        				</td>
+        				<td>
+        					<button disabled>댓글등록</button>
+        				</td>
+        				<% } %>
         			</tr>
         		</thead>
         		
@@ -109,7 +119,30 @@
         <script>
         	$(function(){
         		selectReplyList();
+        		
+        		setInterval(selectReplyList, 1000);
         	})
+        	
+        	// ajax로 댓글 작성용
+        	function insertReply(){
+        		$.ajax({
+        			url:"rinsert.bo",
+        			data:{
+        				content:$("#replyContent").val(),
+        				bno:<%= b.getBoardNo() %> // userNo: 로그인 안한 경우, loginUser null인 경우에는 nullPointerException
+        			},
+        			type:"post",
+        			success:function(result){
+        				if(result > 0) { // 댓글 작성 성공
+		        			selectReplyList();
+        					$("#replyContent").val("");
+        				}
+        			},
+        			error:function(){
+        				console.log("댓글 작성용 ajax 통신 실패");
+        			},
+        		})
+        	}
         	
         	// ajax로 해당 게시글에 딸린 댓글 목록 조회용
         	function selectReplyList(){
