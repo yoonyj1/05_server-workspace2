@@ -10,6 +10,7 @@
     <form action="update2.wa">
     <table>
         <tr>
+            <input type="hidden">
             <th>생수명 입력</th>
             <td><input type="text" name="waterName"></td>
         </tr>
