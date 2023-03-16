@@ -1,10 +1,6 @@
-<%@page import="com.kh.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	Notice n = (Notice)request.getAttribute("notice");
-	// 글번호, 제목, 내용, 작성자아이디, 작성일 
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +18,7 @@
 </style>
 </head>
 <body>
-    <%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
     <div class="outer" align="center">
         <br>
         <h2 align="center">공지사항 상세보기</h2>
@@ -30,18 +26,18 @@
         <table id="detail-area" border="1">
             <tr>
                 <th width="70">제목</th>
-                <td colspan="3" width="430"><%= n.getNoticeTitle() %></td>
+                <td colspan="3" width="430">${ notice.noticeTitle }</td>
             </tr>
             <tr>
                 <th>작성자</th>
-                <td><%= n.getNoticeWriter() %></td>
+                <td>${ notice.noticeWriter }</td>
                 <th>작성일</th>
-                <td><%= n.getCreateDate() %></td>
+                <td>${ notice.createDate }</td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td colspan="3">
-                    <p style="height: 150px;"><%= n.getNoticeContent() %></p>
+                    <p style="height: 150px;">${ notice.noticeContent }</p>
                 </td>
             </tr>
         </table>
@@ -49,13 +45,13 @@
         <br><br>
 
         <div>
-            <a href="<%= contextPath %>/list.no" class="btn btn-sm btn-secondary">목록가기</a>
+            <a href="list.no" class="btn btn-sm btn-secondary">목록가기</a>
             
             <!-- 현재 로그인 한 사용자가 해당 글을 쓴 본인일 경우 -->
-            <% if(loginUser != null && n.getNoticeWriter().equals(loginUser.getUserId())) { %>
-	            <a href="<%= contextPath %>/updateForm.no?num=<%= n.getNoticeNo() %>" class="btn btn-sm btn-warning">수정하기</a>
-	            <a href="<%= contextPath %>/delete.no?num=<%= n.getNoticeNo() %>" class="btn btn-sm btn-danger" onclick="confirm('삭제하시겠습니까?');">삭제하기</a>
-	            <% } %>
+            <c:if test="${ not empty loginUser && notice.noticeWriter == loginUser.userId }">
+	            <a href="updateForm.no?num=${ notice.noticeNo }" class="btn btn-sm btn-warning">수정하기</a>
+	            <a href="delete.no?num=${ notice.noticeNo }" class="btn btn-sm btn-danger" onclick="confirm('삭제하시겠습니까?');">삭제하기</a>
+            </c:if>
         </div>
     </div>
 </body>

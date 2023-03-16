@@ -21,47 +21,37 @@
 </head>
 <body>
 
-	<%@ include file="../common/menubar.jsp" %>
-	
-	<%
-		String userId = loginUser.getUserId();
-		String userName = loginUser.getUserName();
-		String phone = (loginUser.getPhone() == null) ? "" : loginUser.getPhone();
-		String email = (loginUser.getEmail() == null) ? "" : loginUser.getEmail();
-		String address = (loginUser.getAddress() == null) ? "" : loginUser.getAddress();
-		String interest = (loginUser.getInterest() == null) ? "" : loginUser.getInterest();
-		// "운동,등산,영화" | ""
-	%>
+	<jsp:include page="../common/menubar.jsp"/>
 	
     <div class="outer">
         <br>
         <h2 align="center">마이페이지</h2>
-        <form id="mypage-form" action="<%= contextPath %>/update.me" method="post">
+        <form id="mypage-form" action="update.me" method="post">
 
             <table>
                 <tr>
                     <td>* 아이디</td>
-                    <td><input type="text" name="userId" maxlength="12" value="<%= userId %>" readonly></td>
+                    <td><input type="text" name="userId" maxlength="12" value="${ loginUser.userId }" readonly></td>
                     <td><button type="button">중복확인</button></td>
                 </tr>
                 <tr>
                     <td>* 이름</td>
-                    <td><input type="text" name="userName" maxlength="6" value="<%= userName %>" required></td>
+                    <td><input type="text" name="userName" maxlength="6" value="${ loginUser.userName }" required></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;전화번호</td>
-                    <td><input type="text" name="phone" placeholder="- 포함해서 입력" value="<%= phone %>"></td>
+                    <td><input type="text" name="phone" placeholder="- 포함해서 입력" value="${ loginUser.phone }"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;이메일</td>
-                    <td><input type="email" name="email" value="<%= email %>"></td>
+                    <td><input type="email" name="email" value="${ loginUser.email }"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;주소</td>
-                    <td><input type="text" name="address" value="<%= address %>"></td>
+                    <td><input type="text" name="address" value="${ loginUser.address }"></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -90,7 +80,7 @@
             
             <script>
             	$(function(){
-            		const interest = "<%= interest %>";
+            		const interest = "${ loginUser.interest }";
             		// 현재 로그인 한 회원의 관심분야들
             		// "" | "운동,등산,게임"
             		
@@ -131,8 +121,8 @@
 
       <!-- Modal body -->
       <div class="modal-body" align="center">
-		<form action="<%= contextPath %>/updatePwd.me" method="post">
-		<input type="hidden" name="userId" value="<%= userId %>">
+		<form action="updatePwd.me" method="post">
+		<input type="hidden" name="userId" value="${ loginUser.userId }">
             <table>
                 <tr>
                     <td>현재 비밀번호</td>
@@ -181,8 +171,8 @@
   
         <!-- Modal body -->
         <div class="modal-body" align="center">
-          <form action="<%= contextPath %>/delete.me" method="post">
-          <input type="hidden" name="userId" value="<%= userId %>">
+          <form action="delete.me" method="post">
+          <input type="hidden" name="userId" value="${ loginUser.userId }">
             <b>탈퇴 후 복구가 불가능 합니다.<br> 정말로 탈퇴하시겠습니까?</b> <br><br> 
           
             비밀번호: <input type="password" name="userPwd" required> <br><br>

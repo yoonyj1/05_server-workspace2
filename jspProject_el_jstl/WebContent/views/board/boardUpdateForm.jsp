@@ -1,17 +1,6 @@
-<%@page import="com.kh.board.model.vo.Attachment"%>
-<%@page import="com.kh.board.model.vo.Board"%>
-<%@page import="com.kh.board.model.vo.Category"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	ArrayList<Category> list = (ArrayList<Category>)request.getAttribute("list");
-	Board b = (Board)request.getAttribute("b");
-	// 글번호, 카테고리명, 제목, 내용, 작성자아이디, 작성일
-	Attachment at = (Attachment)request.getAttribute("at");
-	// 첨부파일이 없는 경우 null
-	// 		   있는 경우 파일번호, 원본명, 수정명, 저장경로
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,30 +28,30 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
     <div class="outer">
         <br>
         <h2 align="center">일반게시판 수정하기</h2>
         <br>
 
-        <form action="<%=contextPath %>/update.bo" id="update-form" method="post" enctype="multipart/form-data">
-        <input type = "hidden" name = "bno" value = "<%= b.getBoardNo() %>">
-        <!-- enctype 파일 자체를 넘기려면 enctype 필요 -->
+        <form action="update.bo" id="update-form" method="post" enctype="multipart/form-data">
+        <input type = "hidden" name = "bno" value = "${ b.boardNo }">
             <table align="center">
                 <tr>
                     <th width="70">카테고리</th>
                     <td width="500">
                         <!-- 카테고리 테이블에서 조회해오기 -->
+                        	
                         <select name="category">
-                        	<% for(Category c : list) { %>
-                            	<option value="<%= c.getCategoryNo() %>"><%= c.getCategoryName() %></option>
-                            <% } %>
+                        	<c:forEach var="c" items="${ list }">
+                            	<option value="${ c.categoryNo }">${ c.categoryName }</option>
+                            </c:forEach>
                         </select>
                         
                         <script>
                         	$(function(){
                         		$("#update-form option").each(function(){
-                        			if($(this).text() == "<%=b.getCategoryNo() %>") {
+                        			if($(this).text() == "${ b.categoryNo }") {
                         				$(this).attr("selected", true);
                         			}
                         			
@@ -74,22 +63,22 @@
                 <tr>
                     <th>제목</th>
                     <td>
-                        <input type="text" name="title" required value="<%= b.getBoardTitle() %>">
+                        <input type="text" name="title" required value="${ b.boardTitle }">
                     </td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea name="content" rows="10" style="resize: none;" required><%= b.getBoardContent() %></textarea></td>
+                    <td><textarea name="content" rows="10" style="resize: none;" required>${ b.boardContent }</textarea></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <!-- 현재 게시글에 붙은 첨부파일이 있을경우 -->
                     
                     <td>
-                    <% if(at != null) { %>
-                    	<%= at.getOriginName() %>
-                    	<input type="hidden" name="originFileNo" value=<%= at.getFileNo() %>>
-                    <% } %>
+                    <c:if test="${ not empty at }">
+                    	${ at.originName }
+                    	<input type="hidden" name="originFileNo" value="${ at.fileNo }">
+                    </c:if>
                     <input type="file" name="upfile">
                     </td>
                 </tr>
@@ -99,7 +88,7 @@
 
             <div align="center">
                 <button type="submit">수정하기</button>
-                <button type="reset">취소하기</button>
+                <button type="reset">초기화</button>
             </div>
 
         </form>

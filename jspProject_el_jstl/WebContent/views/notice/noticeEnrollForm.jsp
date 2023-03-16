@@ -27,7 +27,7 @@
         <br>
         <h2 align="center">공지사항 작성</h2>
         <br>
-        <form action="<%= contextPath %>/insert.no" id="enroll-form" method="post">
+        <form action="insert.no" id="enroll-form" method="post">
             <table>
                 <tr>
                     <th width="50">제목</th>

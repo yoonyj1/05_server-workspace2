@@ -1,10 +1,6 @@
-<%@page import="com.kh.board.model.vo.Category"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	ArrayList<Category> list = (ArrayList<Category>)request.getAttribute("list");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,25 +28,25 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
     <div class="outer">
         <br>
         <h2 align="center">일반게시판 작성하기</h2>
         <br>
 
-        <form action="<%= contextPath %>/insert.bo" id="enroll-form" method="post" enctype="multipart/form-data">
+        <form action="insert.bo" id="enroll-form" method="post" enctype="multipart/form-data">
         <!-- enctype 파일 자체를 넘기려면 enctype 필요 -->
             <!-- 카테고리, 제목, 내용, 첨부파일 1개, 로그인 한 회원이 회원번호 -->
-        	<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
+        	<input type="hidden" name="userNo" value="${ loginUser.userNo }">
             <table align="center">
                 <tr>
                     <th width="70">카테고리</th>
                     <td width="500">
                         <!-- 카테고리 테이블에서 조회해오기 -->
                         <select name="category">
-                        	<% for(Category c : list) { %>
-                            	<option value="<%= c.getCategoryNo() %>"><%= c.getCategoryName() %></option>
-                            <% } %>
+                        	<c:forEach var="c" items="${ list }">
+                            	<option value="${ c.categoryNo }">${ c.categoryName }</option>
+                            </c:forEach>
                         </select>
                     </td>
                 </tr>
