@@ -1,3 +1,5 @@
+<%@page import="elActionProject.com.kh.model.vo.Person"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -170,5 +172,94 @@
 			<li style="color:${ c }">${ c }</li>
 		</c:forEach>
 	</ul>
+	
+	<%
+		ArrayList<Person> pList = new ArrayList<>();
+		pList.add(new Person("손명오", 20, "남자"));
+		pList.add(new Person("최혜정", 30, "여자"));
+		pList.add(new Person("하예솔", 10, "여자"));
+	%>
+	
+	<c:set var="pList" value="<%= pList %>" scope="request"/>
+	
+	<table border="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>나이</th>
+				<th>성별</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%-- 
+			<% if(pList.isEmpty()) { %>
+			
+			<% } else { %>
+				<% for(Person p : pList) { %>
+				
+				<% } %>
+			<% } %>
+			--%>
+			
+			<c:choose>
+				<c:when test="${ empty pList }">
+					<tr>
+						<td colspan="3">조회된 결과가 없습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="p" items="${ pList }" varStatus="status">
+						<tr>
+							<td>${ status.count }</td> <!-- index: 0부터 시작 / count: 1부터 시작 -->
+							<td>${ p.name }</td>
+							<td>${ p.age }</td>
+							<td>${ p.gender }</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+		</tbody>
+	</table>
+	
+	<br>
+	
+	<h3>5. 반복문 - forTokens</h3>
+	<pre>
+	(c:tokens var="변수명" items="분리시키고자하는 문자열" delims="구분자")
+	
+	- 구분자를 통해서 분리된 각각의 문자열에 순차적으로 접근하면서 반복 수행
+	- JAVA split("구분자") 또는 StringTokenizer와 비슷한 기능 처리
+	</pre>
+	
+	<c:set var="device" value="컴퓨터,핸드폰,TV.에어컨/냉장고.세탁기"/>
+	
+	<ol>
+		<c:forTokens var="d" items="${ device }" delims=",./">
+			<li>${ d }</li>
+		</c:forTokens>
+	</ol>
+	
+	<hr>
+	
+	<h3>6. url, 쿼리스트링 관련 - url, param</h3>
+	<pre>
+	- url 경로를 생성하고, 쿼리스트링을 정의해 둘 수 있는 태그
+	
+	(c:url var="변수명" value="요청할url")
+		(c:param name="키값" value="전달할 값")
+		(c:param name="키값" value="전달할 값")
+						...
+	(/c:url)
+	</pre>
+	
+	<a href="list.do?cpage=1&num=2">기존방식</a>
+	
+	<c:url var="ttt" value="list.do">
+		<c:param name="cpage" value="1"/>
+		<c:param name="num" value="2"/>
+	</c:url>
+	
+	<a href="${ ttt }">c:url 방식</a>
 </body>
 </html>
