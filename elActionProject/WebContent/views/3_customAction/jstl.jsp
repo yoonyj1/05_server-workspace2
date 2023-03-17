@@ -38,6 +38,14 @@
 	
 	<h4>2. JSTL Formatting Library</h4>
 	<p>숫자, 날짜, 시간 데이터의 출력형식을 지정할 때 사용하는 문법을 제공</p>
-	<a href="02_fmt.jsp">fmt library</a>
+	<a href="02_fmt.jsp">fmt library</a> 
+	
+	<br>
+	
+	<h4>3. JSTL Functions Library</h4>
+	<p>EL 안에서 사용할 수 있는 메소드를 제공</p>
+	<a href="03_fn.jsp">fn library</a>
+	
+	
 </body>
 </html>
