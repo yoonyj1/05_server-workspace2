@@ -33,5 +33,11 @@
 	</p>
 	
 	<a href="01_core.jsp">Core library</a>
+	
+	<br>
+	
+	<h4>2. JSTL Formatting Library</h4>
+	<p>숫자, 날짜, 시간 데이터의 출력형식을 지정할 때 사용하는 문법을 제공</p>
+	<a href="02_fmt.jsp">fmt library</a>
 </body>
 </html>
